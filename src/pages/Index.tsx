@@ -2,26 +2,26 @@ import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
 const CHANNELS = [
-  { id: 1, name: "Первый канал", emoji: "1️⃣", color: "#e63946", desc: "Главный канал страны" },
-  { id: 2, name: "Россия-1", emoji: "🇷🇺", color: "#457b9d", desc: "Россия для всей семьи" },
-  { id: 3, name: "Матч! ТВ", emoji: "⚽", color: "#f4a261", desc: "Спорт и соревнования" },
-  { id: 4, name: "НТВ", emoji: "📺", color: "#2a9d8f", desc: "Новости и кино" },
-  { id: 5, name: "5 канал", emoji: "5️⃣", color: "#6a4c93", desc: "Петербург — 5 канал" },
-  { id: 6, name: "Россия К", emoji: "🎭", color: "#e76f51", desc: "Культура и искусство" },
-  { id: 7, name: "Россия 24", emoji: "📰", color: "#264653", desc: "Новости круглосуточно" },
-  { id: 8, name: "Карусель", emoji: "🎠", color: "#e9c46a", desc: "Детско-юношеский канал" },
-  { id: 9, name: "ОТР", emoji: "🏛️", color: "#52b788", desc: "Общественное телевидение" },
-  { id: 10, name: "ТВ Центр", emoji: "🏙️", color: "#c77dff", desc: "Телевидение Москвы" },
-  { id: 11, name: "РЕН ТВ", emoji: "🔥", color: "#ff6b6b", desc: "Острые темы и расследования" },
-  { id: 12, name: "СПАС", emoji: "✝️", color: "#4895ef", desc: "Православное телевидение" },
-  { id: 13, name: "СТС", emoji: "😄", color: "#f72585", desc: "Комедии и развлечения" },
-  { id: 14, name: "Домашний", emoji: "🏠", color: "#fb8500", desc: "Кино и сериалы" },
-  { id: 15, name: "ТВ3", emoji: "🌟", color: "#7209b7", desc: "Мистика и фантастика" },
-  { id: 16, name: "Пятница!", emoji: "🎉", color: "#06d6a0", desc: "Развлечения и лайфстайл" },
-  { id: 17, name: "Звезда", emoji: "⭐", color: "#118ab2", desc: "Армия и патриотизм" },
-  { id: 18, name: "МИР", emoji: "🌍", color: "#43aa8b", desc: "Международное вещание" },
-  { id: 19, name: "ТНТ", emoji: "💥", color: "#ef233c", desc: "Юмор и развлечения" },
-  { id: 20, name: "Муз-ТВ", emoji: "🎵", color: "#9b5de5", desc: "Музыка и клипы" },
+  { id: 1, name: "Первый канал", emoji: "1️⃣", color: "#e63946", desc: "Главный канал страны", iframe: "https://1tv.ru/live" },
+  { id: 2, name: "Россия-1", emoji: "🇷🇺", color: "#457b9d", desc: "Россия для всей семьи", iframe: "https://smotrim.ru/live/4" },
+  { id: 3, name: "Матч! ТВ", emoji: "⚽", color: "#f4a261", desc: "Спорт и соревнования", iframe: "https://matchtv.ru/live" },
+  { id: 4, name: "НТВ", emoji: "📺", color: "#2a9d8f", desc: "Новости и кино", iframe: "https://www.ntv.ru/peredacha/NTV_v_efire/" },
+  { id: 5, name: "5 канал", emoji: "5️⃣", color: "#6a4c93", desc: "Петербург — 5 канал", iframe: "https://www.5-tv.ru/online/" },
+  { id: 6, name: "Россия К", emoji: "🎭", color: "#e76f51", desc: "Культура и искусство", iframe: "https://smotrim.ru/live/19" },
+  { id: 7, name: "Россия 24", emoji: "📰", color: "#264653", desc: "Новости круглосуточно", iframe: "https://smotrim.ru/live/3" },
+  { id: 8, name: "Карусель", emoji: "🎠", color: "#e9c46a", desc: "Детско-юношеский канал", iframe: "https://karusel-tv.ru/efir" },
+  { id: 9, name: "ОТР", emoji: "🏛️", color: "#52b788", desc: "Общественное телевидение", iframe: "https://otr-online.ru/online/" },
+  { id: 10, name: "ТВ Центр", emoji: "🏙️", color: "#c77dff", desc: "Телевидение Москвы", iframe: "https://www.tvc.ru/live" },
+  { id: 11, name: "РЕН ТВ", emoji: "🔥", color: "#ff6b6b", desc: "Острые темы и расследования", iframe: "https://ren.tv/live" },
+  { id: 12, name: "СПАС", emoji: "✝️", color: "#4895ef", desc: "Православное телевидение", iframe: "https://spastv.ru/live/" },
+  { id: 13, name: "СТС", emoji: "😄", color: "#f72585", desc: "Комедии и развлечения", iframe: "https://ctc.ru/online/" },
+  { id: 14, name: "Домашний", emoji: "🏠", color: "#fb8500", desc: "Кино и сериалы", iframe: "https://domashniy.ru/online/" },
+  { id: 15, name: "ТВ3", emoji: "🌟", color: "#7209b7", desc: "Мистика и фантастика", iframe: "https://tv3.ru/online/" },
+  { id: 16, name: "Пятница!", emoji: "🎉", color: "#06d6a0", desc: "Развлечения и лайфстайл", iframe: "https://friday.ru/online/" },
+  { id: 17, name: "Звезда", emoji: "⭐", color: "#118ab2", desc: "Армия и патриотизм", iframe: "https://tvzvezda.ru/news/vstrane_i_mire/live/" },
+  { id: 18, name: "МИР", emoji: "🌍", color: "#43aa8b", desc: "Международное вещание", iframe: "https://mir24.tv/online" },
+  { id: 19, name: "ТНТ", emoji: "💥", color: "#ef233c", desc: "Юмор и развлечения", iframe: "https://tnt-online.ru/live" },
+  { id: 20, name: "Муз-ТВ", emoji: "🎵", color: "#9b5de5", desc: "Музыка и клипы", iframe: "https://muz-tv.ru/live/" },
 ];
 
 const SERIES = [
@@ -125,6 +125,69 @@ const SCHEDULE: Record<string, Array<{ time: string; show: string; channel: stri
 
 type Tab = "home" | "channels" | "series" | "schedule";
 
+type Channel = typeof CHANNELS[0];
+
+function PlayerModal({ channel, onClose }: { channel: Channel; onClose: () => void }) {
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,0,0,0.85)" }}
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-4xl bg-gray-900 rounded-3xl overflow-hidden shadow-2xl animate-pop-in"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Player header */}
+        <div className="flex items-center justify-between px-5 py-3" style={{ background: `linear-gradient(135deg, ${channel.color}cc, ${channel.color}66)` }}>
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">{channel.emoji}</span>
+            <div>
+              <p className="font-fredoka text-white text-lg leading-none">{channel.name}</p>
+              <p className="font-nunito text-white/70 text-xs">{channel.desc}</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="w-9 h-9 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors text-white font-bold text-lg"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* iframe player */}
+        <div className="relative" style={{ paddingBottom: "56.25%", height: 0 }}>
+          <iframe
+            src={channel.iframe}
+            className="absolute inset-0 w-full h-full"
+            allowFullScreen
+            allow="autoplay; fullscreen"
+            style={{ border: "none" }}
+            title={channel.name}
+          />
+        </div>
+
+        {/* Notice */}
+        <div className="px-5 py-3 bg-gray-800 flex items-center gap-2">
+          <span className="text-yellow-400 text-sm">⚠️</span>
+          <p className="font-nunito text-xs text-gray-400">
+            Трансляция открывается с официального сайта канала. Если видео не загружается — откройте канал напрямую по ссылке.
+          </p>
+          <a
+            href={channel.iframe}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto flex-shrink-0 font-nunito font-800 text-xs px-3 py-1.5 rounded-xl text-white"
+            style={{ background: channel.color }}
+          >
+            Открыть сайт →
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const FloatingShape = ({ style, children }: { style: React.CSSProperties; children: React.ReactNode }) => (
   <div className="absolute pointer-events-none select-none opacity-20 animate-float font-fredoka text-4xl" style={style}>
     {children}
@@ -135,9 +198,11 @@ export default function Index() {
   const [activeTab, setActiveTab] = useState<Tab>("home");
   const [selectedDay, setSelectedDay] = useState("Пн");
   const [selectedSeries, setSelectedSeries] = useState<typeof SERIES[0] | null>(null);
+  const [playerChannel, setPlayerChannel] = useState<Channel | null>(null);
 
   return (
     <div className="min-h-screen relative overflow-x-hidden" style={{ background: "linear-gradient(135deg, #fff9f0 0%, #f0f9ff 50%, #f9f0ff 100%)" }}>
+      {playerChannel && <PlayerModal channel={playerChannel} onClose={() => setPlayerChannel(null)} />}
       {/* Floating background shapes */}
       <FloatingShape style={{ top: "5%", left: "2%", animationDelay: "0s" }}>⭐</FloatingShape>
       <FloatingShape style={{ top: "15%", right: "3%", animationDelay: "0.5s" }}>🌈</FloatingShape>
@@ -279,7 +344,7 @@ export default function Index() {
               {CHANNELS.slice(0, 8).map((ch) => (
                 <div
                   key={ch.id}
-                  onClick={() => setActiveTab("channels")}
+                  onClick={() => setPlayerChannel(ch)}
                   className="bg-white rounded-2xl p-4 text-center shadow-md card-hover cursor-pointer"
                 >
                   <div
@@ -345,6 +410,7 @@ export default function Index() {
                   <p className="font-nunito font-800 text-sm text-gray-800 leading-tight mb-1">{ch.name}</p>
                   <p className="font-nunito text-xs text-gray-400">{ch.desc}</p>
                   <button
+                    onClick={(e) => { e.stopPropagation(); setPlayerChannel(ch); }}
                     className="mt-3 w-full py-1.5 rounded-xl font-nunito font-800 text-xs text-white transition-all duration-200 hover:opacity-90"
                     style={{ background: `linear-gradient(135deg, ${ch.color}, ${ch.color}cc)` }}
                   >
@@ -526,7 +592,14 @@ export default function Index() {
                         0+
                       </span>
                     )}
-                    <button className="flex-shrink-0 font-nunito font-800 text-xs px-3 py-1.5 rounded-xl text-white" style={{ background: "#4dabf7" }}>
+                    <button
+                      onClick={() => {
+                        const ch = CHANNELS.find(c => c.name === item.channel);
+                        if (ch) setPlayerChannel(ch);
+                      }}
+                      className="flex-shrink-0 font-nunito font-800 text-xs px-3 py-1.5 rounded-xl text-white"
+                      style={{ background: "#4dabf7" }}
+                    >
                       ▶
                     </button>
                   </div>
