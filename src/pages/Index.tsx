@@ -2,27 +2,29 @@ import { useState, useEffect, useRef } from "react";
 import Hls from "hls.js";
 import Icon from "@/components/ui/icon";
 
+const BASE = "https://streaming.televizor-24-tochka.ru/live";
+
 const CHANNELS = [
-  { id: 1,  name: "Первый канал", emoji: "1️⃣", color: "#e63946", desc: "Главный канал страны",           stream: "https://stream01.1tv.ru/live/hls/playlist.m3u8" },
-  { id: 2,  name: "Россия-1",     emoji: "🇷🇺", color: "#457b9d", desc: "Россия для всей семьи",          stream: "https://player.smotrim.ru/api/m3u8/4/index.m3u8" },
-  { id: 3,  name: "Матч! ТВ",    emoji: "⚽",  color: "#f4a261", desc: "Спорт и соревнования",           stream: "https://live.matchtv.ru/hls/matchtv.m3u8" },
-  { id: 4,  name: "НТВ",         emoji: "📺",  color: "#2a9d8f", desc: "Новости и кино",                 stream: "https://ntv-vh.cdnvideo.ru/ntv/ntv.m3u8" },
-  { id: 5,  name: "5 канал",     emoji: "5️⃣", color: "#6a4c93", desc: "Петербург — 5 канал",            stream: "https://5tv.gstream.ru/5tv/5tv.m3u8" },
-  { id: 6,  name: "Россия К",    emoji: "🎭",  color: "#e76f51", desc: "Культура и искусство",           stream: "https://player.smotrim.ru/api/m3u8/19/index.m3u8" },
-  { id: 7,  name: "Россия 24",   emoji: "📰",  color: "#264653", desc: "Новости круглосуточно",          stream: "https://player.smotrim.ru/api/m3u8/3/index.m3u8" },
-  { id: 8,  name: "Карусель",    emoji: "🎠",  color: "#e9c46a", desc: "Детско-юношеский канал",         stream: "https://karusel-vh.cdnvideo.ru/karusel/karusel.m3u8" },
-  { id: 9,  name: "ОТР",         emoji: "🏛️", color: "#52b788", desc: "Общественное телевидение",       stream: "https://otr-live.cdnvideo.ru/otr/otr.m3u8" },
-  { id: 10, name: "ТВ Центр",    emoji: "🏙️", color: "#c77dff", desc: "Телевидение Москвы",             stream: "https://tvc-vh.cdnvideo.ru/tvc/tvc.m3u8" },
-  { id: 11, name: "РЕН ТВ",      emoji: "🔥",  color: "#ff6b6b", desc: "Острые темы и расследования",    stream: "https://ren-vh.cdnvideo.ru/ren/ren.m3u8" },
-  { id: 12, name: "СПАС",        emoji: "✝️",  color: "#4895ef", desc: "Православное телевидение",       stream: "https://spas-vh.cdnvideo.ru/spas/spas.m3u8" },
-  { id: 13, name: "СТС",         emoji: "😄",  color: "#f72585", desc: "Комедии и развлечения",          stream: "https://cts-vh.cdnvideo.ru/cts/cts.m3u8" },
-  { id: 14, name: "Домашний",    emoji: "🏠",  color: "#fb8500", desc: "Кино и сериалы",                 stream: "https://dom-vh.cdnvideo.ru/dom/dom.m3u8" },
-  { id: 15, name: "ТВ3",         emoji: "🌟",  color: "#7209b7", desc: "Мистика и фантастика",           stream: "https://tv3-vh.cdnvideo.ru/tv3/tv3.m3u8" },
-  { id: 16, name: "Пятница!",    emoji: "🎉",  color: "#06d6a0", desc: "Развлечения и лайфстайл",        stream: "https://fri-vh.cdnvideo.ru/fri/fri.m3u8" },
-  { id: 17, name: "Звезда",      emoji: "⭐",  color: "#118ab2", desc: "Армия и патриотизм",             stream: "https://zvezda-vh.cdnvideo.ru/zvezda/zvezda.m3u8" },
-  { id: 18, name: "МИР",         emoji: "🌍",  color: "#43aa8b", desc: "Международное вещание",          stream: "https://mir-vh.cdnvideo.ru/mir/mir.m3u8" },
-  { id: 19, name: "ТНТ",         emoji: "💥",  color: "#ef233c", desc: "Юмор и развлечения",             stream: "https://tnt-vh.cdnvideo.ru/tnt/tnt.m3u8" },
-  { id: 20, name: "Муз-ТВ",      emoji: "🎵",  color: "#9b5de5", desc: "Музыка и клипы",                 stream: "https://muz-vh.cdnvideo.ru/muz/muz.m3u8" },
+  { id: 1,  name: "Первый канал", emoji: "1️⃣", color: "#e63946", desc: "Главный канал страны",           stream: `${BASE}/1.m3u8` },
+  { id: 2,  name: "Россия-1",     emoji: "🇷🇺", color: "#457b9d", desc: "Россия для всей семьи",          stream: `${BASE}/2.m3u8` },
+  { id: 3,  name: "Матч! ТВ",    emoji: "⚽",  color: "#f4a261", desc: "Спорт и соревнования",           stream: `${BASE}/6.m3u8` },
+  { id: 4,  name: "НТВ",         emoji: "📺",  color: "#2a9d8f", desc: "Новости и кино",                 stream: `${BASE}/14.m3u8` },
+  { id: 5,  name: "5 канал",     emoji: "5️⃣", color: "#6a4c93", desc: "Петербург — 5 канал",            stream: `${BASE}/5.m3u8` },
+  { id: 6,  name: "Россия К",    emoji: "🎭",  color: "#e76f51", desc: "Культура и искусство",           stream: `${BASE}/11.m3u8` },
+  { id: 7,  name: "Россия 24",   emoji: "📰",  color: "#264653", desc: "Новости круглосуточно",          stream: `${BASE}/3.m3u8` },
+  { id: 8,  name: "Карусель",    emoji: "🎠",  color: "#e9c46a", desc: "Детско-юношеский канал",         stream: `${BASE}/9.m3u8` },
+  { id: 9,  name: "ОТР",         emoji: "🏛️", color: "#52b788", desc: "Общественное телевидение",       stream: `${BASE}/10.m3u8` },
+  { id: 10, name: "ТВ Центр",    emoji: "🏙️", color: "#c77dff", desc: "Телевидение Москвы",             stream: `${BASE}/7.m3u8` },
+  { id: 11, name: "РЕН ТВ",      emoji: "🔥",  color: "#ff6b6b", desc: "Острые темы и расследования",    stream: `${BASE}/16.m3u8` },
+  { id: 12, name: "СПАС",        emoji: "✝️",  color: "#4895ef", desc: "Православное телевидение",       stream: `${BASE}/12.m3u8` },
+  { id: 13, name: "СТС",         emoji: "😄",  color: "#f72585", desc: "Комедии и развлечения",          stream: `${BASE}/17.m3u8` },
+  { id: 14, name: "Домашний",    emoji: "🏠",  color: "#fb8500", desc: "Кино и сериалы",                 stream: `${BASE}/18.m3u8` },
+  { id: 15, name: "ТВ3",         emoji: "🌟",  color: "#7209b7", desc: "Мистика и фантастика",           stream: `${BASE}/19.m3u8` },
+  { id: 16, name: "Пятница!",    emoji: "🎉",  color: "#06d6a0", desc: "Развлечения и лайфстайл",        stream: `${BASE}/20.m3u8` },
+  { id: 17, name: "Звезда",      emoji: "⭐",  color: "#118ab2", desc: "Армия и патриотизм",             stream: `${BASE}/21.m3u8` },
+  { id: 18, name: "МИР",         emoji: "🌍",  color: "#43aa8b", desc: "Международное вещание",          stream: `${BASE}/22.m3u8` },
+  { id: 19, name: "ТНТ",         emoji: "💥",  color: "#ef233c", desc: "Юмор и развлечения",             stream: `${BASE}/23.m3u8` },
+  { id: 20, name: "Муз-ТВ",      emoji: "🎵",  color: "#9b5de5", desc: "Музыка и клипы",                 stream: `${BASE}/24.m3u8` },
 ];
 
 const SERIES = [
