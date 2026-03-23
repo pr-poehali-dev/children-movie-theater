@@ -199,6 +199,7 @@ export default function Index() {
   const [selectedDay, setSelectedDay] = useState("Пн");
   const [selectedSeries, setSelectedSeries] = useState<typeof SERIES[0] | null>(null);
   const [playerChannel, setPlayerChannel] = useState<Channel | null>(null);
+  const [search, setSearch] = useState("");
 
   return (
     <div className="min-h-screen relative overflow-x-hidden" style={{ background: "linear-gradient(135deg, #fff9f0 0%, #f0f9ff 50%, #f9f0ff 100%)" }}>
@@ -389,13 +390,37 @@ export default function Index() {
         {/* CHANNELS */}
         {activeTab === "channels" && (
           <div>
-            <div className="flex items-center gap-3 mb-6">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-xl" style={{ background: "#ff6b6b20" }}>📺</div>
               <h2 className="font-fredoka text-3xl text-gray-700">Все ТВ-каналы</h2>
               <span className="bg-red-100 text-red-500 font-nunito font-800 text-sm px-3 py-1 rounded-full">{CHANNELS.length} каналов</span>
             </div>
+            {/* Search */}
+            <div className="relative mb-6">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-lg">🔍</span>
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Найти канал..."
+                className="w-full pl-11 pr-4 py-3 bg-white rounded-2xl shadow-md font-nunito font-700 text-sm text-gray-700 outline-none border-2 border-transparent focus:border-pink-300 transition-colors"
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 font-bold text-lg"
+                >✕</button>
+              )}
+            </div>
+            {CHANNELS.filter(ch => ch.name.toLowerCase().includes(search.toLowerCase())).length === 0 && (
+              <div className="text-center py-16">
+                <div className="text-5xl mb-3">🔍</div>
+                <p className="font-fredoka text-xl text-gray-400">Канал не найден</p>
+                <p className="font-nunito text-sm text-gray-300">Попробуй другое название</p>
+              </div>
+            )}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {CHANNELS.map((ch, i) => (
+              {CHANNELS.filter(ch => ch.name.toLowerCase().includes(search.toLowerCase())).map((ch, i) => (
                 <div
                   key={ch.id}
                   className="bg-white rounded-2xl p-5 text-center shadow-md card-hover cursor-pointer animate-pop-in group"
